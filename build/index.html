@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGSL Word Rush</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- アプリケーション全体のコンテナ -->
+    <div id="app">
+        <!-- スタート画面 -->
+        <div id="start-screen" class="screen card">
+            <h1>NGSL Word Rush</h1>
+            <p class="desc">重要英単語2800語を完全制覇せよ</p>
+            <!-- 習得状況の表示 -->
+            <div style="margin-bottom: 20px;">
+                <span id="total-mastered-count"
+                    style="font-size: 1.2rem; font-weight: bold; color: var(--secondary);">0</span>
+                <span style="color: #95a5a6;"> / 2800 words mastered</span>
+            </div>
+            <button class="btn-primary" onclick="startGame()">START GAME</button><br>
+            <button class="btn-secondary" onclick="showCollection()">MY COLLECTION</button>
+        </div>
+
+        <!-- ゲームプレイ画面（初期状態は非表示） -->
+        <div id="game-screen" class="hidden">
+            <!-- スコアとタイマー表示 -->
+            <div class="score-board">
+                <span>Score: <span id="score">0</span></span>
+                <span>Time: <span id="timer">30</span></span>
+            </div>
+
+            <!-- 問題カード -->
+            <div class="card">
+                <!-- コンボ表示エフェクト -->
+                <div id="combo-display" class="combo-text">COMBO!</div>
+                <!-- 残り時間バー -->
+                <div class="hp-bar">
+                    <div class="hp-fill" id="time-bar"></div>
+                </div>
+
+                <!-- 問題表示エリア -->
+                <div class="word-display">
+                    <h2 class="main-word" id="question-word">Loading...</h2>
+                    <!-- ヒント（例文）表示 -->
+                    <div class="hint-box" id="hint-text"></div>
+                </div>
+
+                <!-- 選択肢ボタンエリア -->
+                <div class="options-grid" id="options-container">
+                    <!-- Javascriptでボタンが注入されます -->
+                </div>
+            </div>
+        </div>
+
+        <!-- リザルト画面 -->
+        <div id="result-screen" class="screen card hidden">
+            <h1>Time Up!</h1>
+            <p class="desc">今回のスコア</p>
+            <h2 style="font-size: 3rem; margin: 10px 0; color:var(--primary);" id="final-score">0</h2>
+            <!-- 新規習得単語数 -->
+            <div class="collection-stats" id="result-stats" style="display:none;">
+                <div class="stat-item">
+                    <h3 id="new-words-count">0</h3>
+                    <p>New Words</p>
+                </div>
+            </div>
+            <p id="feedback-msg">Good Job!</p>
+            <button class="btn-primary" onclick="startGame()">PLAY AGAIN</button>
+            <button class="btn-secondary" onclick="showStartScreen()">HOME</button>
+        </div>
+
+        <!-- コレクション（習得単語一覧）画面 -->
+        <div id="collection-screen" class="screen card hidden">
+            <button class="back-btn" onclick="showStartScreen()">←</button>
+            <h2>My Collection</h2>
+            <p class="desc">覚えた単語リスト</p>
+
+            <!-- 統計情報 -->
+            <div class="collection-stats">
+                <div class="stat-item">
+                    <h3 id="collection-total">0</h3>
+                    <p>Mastered</p>
+                </div>
+                <div class="stat-item">
+                    <h3 id="collection-percent">0%</h3>
+                    <p>Completion</p>
+                </div>
+            </div>
+
+            <!-- 単語リスト -->
+            <div class="word-list" id="collection-list">
+                <!-- Javascriptで単語が注入されます -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 単語データとゲームロジックの読み込み -->
+    <script src="words.js"></script>
+    <script src="game.js"></script>
+</body>
+
+</html>
